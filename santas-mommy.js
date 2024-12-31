@@ -1,38 +1,45 @@
 function secretSanta(names) {
-    // Shuffle the names
-    const shuffled = [...names].sort(() => Math.random() - 0.5);
+    const givers = [...names];
+    const receivers = [...names];
+
+    // Shuffle the receivers list
+    receivers.sort(() => Math.random() - 0.5);
+
     const pairs = {};
-
     let attempts = 0;
+
+    // Ensure no one gets their own name
     while (attempts < 1000) {
-        for (let i = 0; i < shuffled.length; i++) {
-            pairs[shuffled[i]] = shuffled[(i + 1) % shuffled.length];
+        let valid = true;
+
+        for (let i = 0; i < givers.length; i++) {
+            if (givers[i] === receivers[i]) {
+                valid = false;
+                break;
+            }
         }
 
-        // Check for reverse pairs
-        let reversePairs = 0;
-        for (const giver in pairs) {
-            const receiver = pairs[giver];
-            if (pairs[receiver] === giver) reversePairs++;
-        }
-
-        if (reversePairs <= 2) {
+        if (valid) {
+            // Assign pairs
+            for (let i = 0; i < givers.length; i++) {
+                pairs[givers[i]] = receivers[i];
+            }
             return pairs;
         }
 
-        // Retry if too many reverse pairs
-        shuffled.sort(() => Math.random() - 0.5);
+        // Shuffle again if invalid
+        receivers.sort(() => Math.random() - 0.5);
         attempts++;
     }
 
-    throw new Error("Couldn't generate Secret Santa assignments within constraints.");
+    throw new Error("Couldn't generate valid Secret Santa assignments after many attempts.");
 }
 
 // List of names
 const names = [
-    "Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace",
-    "Hank", "Ivy", "Jack", "Karen", "Leo", "Mona", "Nick",
-    "Olivia", "Paul", "Quinn", "Rita", "Steve", "Tina"
+    "Kabeer", "Arshpreet", "Hritaxhi", "Reyna", "Zineerah", "Nidhi", "Barkha",
+    "Shree", "Paulomi", "Ray", "Pratham", "Isha", "Seeya", "Nikita",
+    "Sunishka", "Deeya", "Alisha", "Shaina", "Siddhi D", "Tanishka"
 ];
 
 // Generate Secret Santa assignments
