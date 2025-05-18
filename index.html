@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Thank You App</title>
+  <title>Grievance App</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: #ffcce0; /* baby pink */
+      background-color: #ffcce0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,7 +16,7 @@
     }
 
     .container {
-      background-color: #ff6699; /* darker pink */
+      background-color: #ff6699;
       padding: 30px;
       border-radius: 20px;
       text-align: center;
@@ -49,14 +49,30 @@
 </head>
 <body>
   <div class="container">
-    <input type="text" id="userInput" placeholder="State your greivances...">
-    <button onclick="showThankYou()">Enter</button>
+    <input type="text" id="userInput" placeholder="Say something...">
+    <button onclick="respond()">Enter</button>
     <div class="output" id="outputText"></div>
   </div>
 
   <script>
-    function showThankYou() {
-      document.getElementById("outputText").textContent = "WHY WOULD YOU SAY THAT THAT'S SO MEANN :( ";
+    function respond() {
+      const input = document.getElementById("userInput").value.toLowerCase().trim();
+      const output = document.getElementById("outputText");
+
+      const loveWords = ["love you", "luh you", "luh u"];
+      const negativeWords = ["hate", "mad", "angry", "stupid", "annoying", "dumb"];
+
+      if (loveWords.some(phrase => input.includes(phrase))) {
+        if (input.includes("luh")) {
+          output.textContent = "luh u more";
+        } else {
+          output.textContent = "love you more";
+        }
+      } else if (negativeWords.some(word => input.includes(word))) {
+        output.textContent = "WHY WOULD YOU SAY THAT? THAT'S SO MEAN :(";
+      } else {
+        output.textContent = "whadafuck wdym";
+      }
     }
   </script>
 </body>
