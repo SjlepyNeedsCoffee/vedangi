@@ -1,56 +1,63 @@
-function secretSanta(names) {
-    const givers = [...names];
-    const receivers = [...names];
-
-    // Shuffle the receivers list
-    receivers.sort(() => Math.random() - 0.5);
-
-    const pairs = {};
-    let attempts = 0;
-
-    // Ensure no one gets their own name
-    while (attempts < 1000) {
-        let valid = true;
-
-        for (let i = 0; i < givers.length; i++) {
-            if (givers[i] === receivers[i]) {
-                valid = false;
-                break;
-            }
-        }
-
-        if (valid) {
-            // Assign pairs
-            for (let i = 0; i < givers.length; i++) {
-                pairs[givers[i]] = receivers[i];
-            }
-            return pairs;
-        }
-
-        // Shuffle again if invalid
-        receivers.sort(() => Math.random() - 0.5);
-        attempts++;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You App</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffcce0; /* baby pink */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
     }
 
-    throw new Error("Couldn't generate valid Secret Santa assignments after many attempts.");
-}
-
-// List of names
-const names = [
-    "Kabeer", "Arshpreet", "Hritaxhi", "Reyna", "Zineerah", "Nidhi", "Barkha",
-    "Shree", "Paulomi", "Ray", "Pratham", "Isha", "Seeya", "Nikita",
-    "Sunishka", "Deeya", "Alisha", "Shaina", "Siddhi D", "Tanishka"
-];
-
-// Generate Secret Santa assignments
-try {
-    const assignments = secretSanta(names);
-
-    // Output the complete list of "Who got who"
-    console.log("Secret Santa assignments:");
-    for (const [giver, receiver] of Object.entries(assignments)) {
-        console.log(`${giver} got ${receiver}`);
+    .container {
+      background-color: #ff6699; /* darker pink */
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-} catch (error) {
-    console.error(error.message);
-}
+
+    input[type="text"] {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      width: 200px;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .output {
+      margin-top: 20px;
+      font-size: 18px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input type="text" id="userInput" placeholder="Type something...">
+    <button onclick="showThankYou()">Enter</button>
+    <div class="output" id="outputText"></div>
+  </div>
+
+  <script>
+    function showThankYou() {
+      document.getElementById("outputText").textContent = "Thank you";
+    }
+  </script>
+</body>
+</html>
